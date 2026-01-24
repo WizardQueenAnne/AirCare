@@ -235,21 +235,24 @@
                 <div class="contact-form">
                     <form id="contactForm" action="https://formspree.io/f/mvzkngvj" method="POST">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Full Name" required>
+                            <input type="text" id="name" name="name" placeholder="Full Name">
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Email Address" required>
+                            <input type="email" id="email" name="email" placeholder="Email Address">
                         </div>
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9\s\-\(\)\+]*" title="Please enter a valid phone number">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="school" name="school" placeholder="School/District Name" required>
+                            <input type="text" id="school" name="school" placeholder="School/District Name">
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="4" placeholder="Tell us about your needs"></textarea>
+                            <input type="number" id="quantity" name="quantity" placeholder="How many AirCare units would you like?" min="1">
                         </div>
-                        <button type="submit" class="btn-primary btn-large">Request Demo</button>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="4" placeholder="Additional notes or questions (optional)"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-large">Send</button>
                     </form>
                 </div>
             </div>
