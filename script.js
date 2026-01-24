@@ -1,13 +1,15 @@
 // Scroll Animation Observer
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            // Stop observing once visible for better performance
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -50,11 +52,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar scroll effect
+// Navbar scroll effect with throttling
 const navbar = document.querySelector('.navbar');
 let lastScroll = 0;
+let ticking = false;
 
-window.addEventListener('scroll', () => {
+function updateNavbar() {
     const currentScroll = window.pageYOffset;
     
     if (currentScroll > 50) {
@@ -64,6 +67,14 @@ window.addEventListener('scroll', () => {
     }
     
     lastScroll = currentScroll;
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+    }
 });
 
 // Form Submission Handler
@@ -115,37 +126,11 @@ if (contactForm) {
 
 // Add animation delay to cards for staggered effect
 window.addEventListener('load', () => {
-    const cards = document.querySelectorAll('.card, .benefit-card, .pricing-card');
+    const cards = document.querySelectorAll('.card, .benefit-card');
     cards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
+        card.style.transitionDelay = `${index * 0.05}s`;
     });
 });
-
-// Parallax effect for hero section (subtle)
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.5;
-        hero.style.transform = `translateY(${rate}px)`;
-    }
-});
-
-// Counter animation for stats (if you want to add stats later)
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(start);
-        }
-    }, 16);
-}
 
 // Lazy loading for images (if you add real images later)
 if ('IntersectionObserver' in window) {
@@ -164,8 +149,10 @@ if ('IntersectionObserver' in window) {
     images.forEach(img => imageObserver.observe(img));
 }
 
-// Add active state to navigation based on scroll position
-window.addEventListener('scroll', () => {
+// Add active state to navigation based on scroll position with throttling
+let navTicking = false;
+
+function updateActiveNav() {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.pageYOffset;
 
@@ -182,4 +169,13 @@ window.addEventListener('scroll', () => {
             navLink.classList.add('active-link');
         }
     });
+    
+    navTicking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!navTicking) {
+        window.requestAnimationFrame(updateActiveNav);
+        navTicking = true;
+    }
 });
