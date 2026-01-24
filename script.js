@@ -84,7 +84,6 @@ if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const formData = new FormData(contactForm);
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         
@@ -95,7 +94,7 @@ if (contactForm) {
         try {
             const response = await fetch(contactForm.action, {
                 method: 'POST',
-                body: formData,
+                body: new FormData(contactForm),
                 headers: {
                     'Accept': 'application/json'
                 }
@@ -106,16 +105,12 @@ if (contactForm) {
                 alert('Thank you for your interest in AirCare! We will contact you shortly.');
                 contactForm.reset();
             } else {
-                // Error from Formspree
-                const data = await response.json();
-                if (data.errors) {
-                    alert('There was an error submitting your request. Please try again.');
-                }
+                // Error
+                alert('Oops! There was a problem submitting your form. Please try again.');
             }
         } catch (error) {
             // Network error
-            alert('There was an error submitting your request. Please check your connection and try again.');
-            console.error('Error:', error);
+            alert('Oops! There was a problem submitting your form. Please try again.');
         } finally {
             // Re-enable button
             submitButton.disabled = false;
