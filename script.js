@@ -77,50 +77,50 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Form Submission Handler
+// Form Submission Handler for Formspree
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Get form data
-        const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            school: document.getElementById('school').value,
-            message: document.getElementById('message').value
-        };
+        const formData = new FormData(contactForm);
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
         
-        // Log form data (in production, this would send to a server)
-        console.log('Form submitted:', formData);
+        // Disable button and show loading state
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
         
-        // Show success message
-        alert('Thank you for your interest in AirCare! We will contact you shortly.');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // In production, you would send this data to your backend:
-        /*
-        fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Thank you for your interest in AirCare! We will contact you shortly.');
-            contactForm.reset();
-        })
-        .catch(error => {
-            alert('There was an error submitting your request. Please try again.');
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Success
+                alert('Thank you for your interest in AirCare! We will contact you shortly.');
+                contactForm.reset();
+            } else {
+                // Error from Formspree
+                const data = await response.json();
+                if (data.errors) {
+                    alert('There was an error submitting your request. Please try again.');
+                }
+            }
+        } catch (error) {
+            // Network error
+            alert('There was an error submitting your request. Please check your connection and try again.');
             console.error('Error:', error);
-        });
-        */
+        } finally {
+            // Re-enable button
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
     });
 }
 
