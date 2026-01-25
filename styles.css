@@ -67,10 +67,15 @@ body {
     padding: 20px 0;
 }
 
-.logo h1 {
-    color: var(--primary-color);
-    font-size: 28px;
-    font-weight: 700;
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-menu {
@@ -254,6 +259,20 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
+.card.highlight-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: 3px solid var(--primary-color);
+}
+
+.card.highlight-card h3 {
+    color: white;
+}
+
+.card.highlight-card p {
+    color: rgba(255, 255, 255, 0.95);
+}
+
 .card .icon {
     font-size: 48px;
     margin-bottom: 20px;
@@ -298,15 +317,13 @@ body {
     justify-content: center;
 }
 
-.placeholder-image {
+.product-photo {
     width: 100%;
-    height: 400px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 120px;
+    box-shadow: var(--shadow-lg);
 }
 
 .feature-content h3 {
@@ -343,6 +360,74 @@ body {
     font-weight: bold;
 }
 
+/* App Section */
+.app-section {
+    background: var(--bg-white);
+}
+
+.app-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.phone-mockup {
+    position: relative;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.app-image {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25), 
+                0 18px 36px -18px rgba(0, 0, 0, 0.3);
+    border: 8px solid #1f2937;
+}
+
+.app-features h3 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.app-features > p {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 35px;
+    line-height: 1.7;
+}
+
+.app-feature-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.app-feature-list li {
+    padding-left: 0;
+}
+
+.app-feature-list strong {
+    display: block;
+    font-size: 18px;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.app-feature-list p {
+    color: var(--text-light);
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.6;
+}
+
 /* Benefits */
 .benefit-card {
     background: var(--bg-white);
@@ -355,6 +440,15 @@ body {
 .benefit-card:hover {
     transform: translateX(5px);
     box-shadow: var(--shadow-lg);
+}
+
+.benefit-card.price-card {
+    border-left: 4px solid var(--secondary-color);
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.05), var(--bg-white));
+}
+
+.benefit-card.price-card h3 {
+    color: var(--secondary-color);
 }
 
 .benefit-card h3 {
@@ -388,17 +482,12 @@ body {
     justify-content: center;
 }
 
-.sensor-image {
+.sensor-product-image {
     width: 100%;
     max-width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 150px;
-    box-shadow: var(--shadow-lg);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15));
 }
 
 .product-details h3 {
@@ -645,9 +734,17 @@ body {
         direction: ltr;
     }
 
-    .placeholder-image {
-        height: 300px;
-        font-size: 80px;
+    .product-photo {
+        max-height: 300px;
+    }
+
+    .app-showcase {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .phone-mockup {
+        max-width: 280px;
     }
 
     .pricing-grid {
@@ -754,9 +851,28 @@ body {
         padding: 30px 20px;
     }
 
-    .sensor-image {
-        height: 250px;
-        font-size: 100px;
+    .sensor-product-image {
+        max-width: 250px;
+    }
+
+    .product-photo {
+        max-height: 250px;
+    }
+
+    .app-showcase {
+        gap: 40px;
+    }
+
+    .phone-mockup {
+        max-width: 240px;
+    }
+
+    .app-features h3 {
+        font-size: 24px;
+    }
+
+    .app-features > p {
+        font-size: 16px;
     }
 
     .purchase-buttons {
@@ -769,6 +885,20 @@ body {
 
     .price-amount {
         font-size: 48px;
+    }
+
+    .app-content h3 {
+        font-size: 24px;
+    }
+
+    .app-content p {
+        font-size: 16px;
+    }
+
+    .phone-frame {
+        width: 220px;
+        height: 440px;
+        border-width: 10px;
     }
 
     .footer-content {
@@ -787,14 +917,16 @@ body {
         font-size: 16px;
     }
 
-    .placeholder-image {
-        height: 200px;
-        font-size: 60px;
+    .product-photo {
+        max-height: 200px;
     }
 
-    .sensor-image {
-        height: 200px;
-        font-size: 80px;
+    .sensor-product-image {
+        max-width: 200px;
+    }
+
+    .phone-mockup {
+        max-width: 200px;
     }
 
     .card {
