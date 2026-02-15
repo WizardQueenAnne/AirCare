@@ -524,11 +524,7 @@ body {
 .feature-item-full {
     max-width: 800px;
     margin: 0 auto;
-    text-align: center;
-    padding: 40px;
-    background: var(--bg-white);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
+    padding: 0;
 }
 
 .feature-content-centered {
@@ -540,6 +536,7 @@ body {
     font-size: 32px;
     margin-bottom: 20px;
     color: var(--text-dark);
+    text-align: center;
 }
 
 .feature-content-centered p {
@@ -547,6 +544,7 @@ body {
     color: var(--text-light);
     margin-bottom: 30px;
     line-height: 1.7;
+    text-align: center;
 }
 
 .feature-list-centered {
@@ -1242,10 +1240,6 @@ body {
 
     .feature-content p {
         font-size: 16px;
-    }
-
-    .feature-item-full {
-        padding: 30px 20px;
     }
 
     .feature-list-centered {
